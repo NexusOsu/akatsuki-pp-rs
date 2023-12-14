@@ -181,7 +181,7 @@ impl<'m> OsuPP<'m> {
             let n = n300.min(n50 / 4);
             n300 -= n;
             n100 += 6 * n;
-            n50 -=  * n;
+            n50 -=  5* n;
 
             self.n300.replace(n300);
             self.n100.replace(n100);
