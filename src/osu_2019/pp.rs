@@ -180,8 +180,8 @@ impl<'m> OsuPP<'m> {
             // Sacrifice n300s to transform n50s into n100s
             let n = n300.min(n50 / 4);
             n300 -= n;
-            n100 += 5 * n;
-            n50 -= 4 * n;
+            n100 += 6 * n;
+            n50 -=  * n;
 
             self.n300.replace(n300);
             self.n100.replace(n100);
@@ -406,8 +406,8 @@ impl<'m> OsuPP<'m> {
         }
 
         // Scale with accuracy
-        aim_value *= 0.3 + self.acc.unwrap() / 2.0;
-        aim_value *= 0.98 + attributes.od as f32 * attributes.od as f32 / 2500.0;
+        aim_value *= 0.5 + self.acc.unwrap() / 1.5;
+        aim_value *= 1.0 + attributes.od as f32 * attributes.od as f32 / 2350.0;
 
         aim_value
     }
@@ -442,6 +442,10 @@ impl<'m> OsuPP<'m> {
                 ar_factor = 0.025 * (8.0 - attributes.ar);
             }
 
+            if attributes.ar >= 11.0 {
+                ar_factor = 0.36 * (attributes.ar - 11.00);
+            }
+
             speed_value *= 1.0 + ar_factor as f32 * len_bonus;
         }
 
@@ -451,7 +455,7 @@ impl<'m> OsuPP<'m> {
         }
 
         // Scaling the speed value with accuracy and OD
-        speed_value *= (0.93 + attributes.od as f32 * attributes.od as f32 / 750.0)
+        speed_value *= (0.95 + attributes.od as f32 * attributes.od as f32 / 734.0)
             * self
                 .acc
                 .unwrap()
@@ -489,7 +493,7 @@ impl<'m> OsuPP<'m> {
 
         // FL bonus
         if self.mods.fl() {
-            acc_value *= 1.02;
+            acc_value *= 1.06;
         }
 
         acc_value
